@@ -45,6 +45,18 @@ ____
   + Pods:
   + Container:
 + ![alt](https://d33wubrfki0l68.cloudfront.net/2475489eaf20163ec0f54ddc1d92aa8d4c87c96b/e7c81/images/docs/components-of-kubernetes.svg)
+  
+  + Control Plane Components: quản lý một cluster cố định. Các component thuộc loại này có thể chạy trên bất kỳ máy nào thuộc cluster. Gồm các loại thành phần sau:
+      + kube-apiserver:
+      + etcd:
+      + kube-scheduler:
+      + kube-controller-manager:
+      + cloud-controller-manager:
+  + Node Components:
+    + kubelet
+    + kube-proxy
+    + container runtime
+  + 
 ___
 #### Dựa theo dàn ý của Bizfly Expert talk Ứng dụng công nghệ container với Kubernetes vào hệ thống IT doanh nghiệp
 
