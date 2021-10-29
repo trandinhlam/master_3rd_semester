@@ -104,7 +104,7 @@ ____
 
 + open-souce **container orchestration tool**
 + Develop by Google
-+ Manage containers like docker
++ Manage containers Framework like docker
 + Manage hundreds-thousands containers in different deployment environments (physical, virtual, cloud)
 
 ## Why?
@@ -120,6 +120,8 @@ ____
 + Disaster recovery (backup & rollback)
 
 ## K8s components:
+
+![img.png](HinhAnh/components.png)
 
 **Has thousand components, But most of the time we only use some of them**
 
@@ -158,6 +160,34 @@ ____
       Deployment for this kind Pod, instead of that use **StatefulSet**
       ![img.png](HinhAnh/deplomentStruct.png)
 + **StatefulSet**:
-    + Deploy StatefulSet not easy
+    + Deploy StatefulSet not easy => DB are often hosted **outside** of K8s cluster
+
+## K8s Basic Architecture
+
+### **3 Node processes in Worker machine**:
+
+![img.png](HinhAnh/WorkerMachine.png)
+
++ **Container runtime**
+
++ **Kubelet**:
+    + Interacts with both - the container and node
+    + Starts the Pod with a Container inside & assign resource to it
++ **Kube proxy**:
+    + Installed on every Node
+    + Intelligent forwarding request
+
+### 4 Master proceses (Master Nodes)
+
++ **Api Server**:
+    + Cluster gateway
+    + Acts as a gatekeeper for authentication
+    + Receive user request action onto cluster
++ **Scheduler**:
+    + Scheduler in order to start application Pod on one of the Worker nodes
+    + Decide where to put the scheduled Pod base on prerequisite resources
+    + 
     
-    
+
+
+
