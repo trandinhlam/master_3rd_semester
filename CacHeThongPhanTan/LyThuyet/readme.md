@@ -162,6 +162,10 @@ ____
 + **StatefulSet**:
     + Deploy StatefulSet not easy => DB are often hosted **outside** of K8s cluster
 
++ **ReplicaSet**:
+    + Manage a set of replica for Pod, belong to specific deployment
+    +
+
 ## K8s Basic Architecture
 
 ### **3 Node processes in Worker machine**:
@@ -179,6 +183,8 @@ ____
 
 ### 4 Master proceses (Master Nodes)
 
+![img.png](HinhAnh/MasterNodes.png)
+
 + **Api Server**:
     + Cluster gateway
     + Acts as a gatekeeper for authentication
@@ -186,8 +192,69 @@ ____
 + **Scheduler**:
     + Scheduler in order to start application Pod on one of the Worker nodes
     + Decide where to put the scheduled Pod base on prerequisite resources
-    + 
-    
++ **Controller manager**:
+    + Detect cluster state changes (node died, recover,...)
+    + Send control request to Scheduler
++ **etcd**:
+    + etcd is the **cluster brain**
+    + Cluster changes get stored in the key-value store:
+        + Is the cluster healthy?
+        + What resources are available?
+        + Did the cluster state change?
+    + Application data is __NOT__ store in etcd!
+    + etcd holds the current status of any K8s component
 
+### Example Cluster Setup
 
+### Minikube & Kubectl
 
++ **Minikube**:
+    + Is basically 1-node-cluster
+    + Master and Worker run on 1 machine
+    + Docker pre-installed
+    + Need a virtualization
+    + For testing/learning purposes
+
++ **Kubectl**:
+    + CLI for K8s control cluster
+    + Do anything in the kubernetes
+    + Any type of cluster setup (local, minikube, cloud)
+
+### YAML Configuration File in Kubernetes
+
++ **3 parts of config file**:
+    + metadata:
+        + name
+        + labels
+    + specification:
+        + replicas:
+        + selector:
+        + template:
+    + status:
++ Connecting Deployment to Pods
++ Connecting Service to Deployments
+
+### Demo mongo-express
+
+### Namespace:
+
++ Why namespace?
+    + For good organization of resource & role
+    + Avoid conflicts between teams & product
++ How?
+    + Cannot access most resources from another Namespace
+    + Each Namespace must define own ConfigMap
+
++ **kube-system**:
+    + system namespace, do NOT create or edit on kube-system
++ **kube-public**:
+    + publicely accessible data
+    + A configmap, which contains cluster information
++ **kube-node-lease**:
+    + health information
++ **default**:
+    + main resource
+
++ Create component in a Namespace
+
+### Ingress
