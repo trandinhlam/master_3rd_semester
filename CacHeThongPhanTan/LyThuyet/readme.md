@@ -258,3 +258,10 @@ ____
 + Create component in a Namespace
 
 ### Ingress
+
+______
+______
+
+# K8s AutoScaling Mechanism
+
+
