@@ -264,4 +264,32 @@ ______
 
 # K8s AutoScaling Mechanism
 
++ Có 3 loại autoScaler trong K8s
+
+___
+
+## Horizontal Pod Autoscaler (HPA)
+
++ Scale số lượng Pod bên trong một cluster
++ For scaling stateless applications
++ Mechanism:
+    + Cấu hình ban đầu cho một hằng số sử dụng CPU M
+    + Các Pod gửi thông số tài nguyên đến Metric-Server mỗi 10s
+    + AutoScaler monitor các thông số tài nguyên từ Metric-Server mỗi 15 giây (dữ liệu cập nhật mỗi 1 phút), và lấy giá
+      trị trung bình m resource của các Pod (thông thường là CPU)
+    + Nếu m vượt ngưỡng cho trước thì tăng thêm số lượng replica sao cho m = M, và ngược lại nếu m thấp
+    + Trong trường hợp xấu nhất, tổng thời gian cho HPA là 10+60+15
+    + Ngoài ra còn monitor được các tài nguyên như network traffic, memory, hoặc số pending task trong một queue
+
+___
+
+## Vertical Pods Autoscaler (VPA)
+
+___
+
+## Cluster Autoscaler  (CA)
+
++ Scale ra node khác, thay đổi số lượng node trong một cluster
++ 
+
 
