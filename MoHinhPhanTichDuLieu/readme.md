@@ -9,14 +9,14 @@
 Kĩ thuật thêm vào loss function một đại lượng nữa thông qua một trọng số lamda để điều chỉnh ảnh hưởng của lượng regularization đối với loss function
 Một số kĩ thuật thường gặp
 L1 regularization (LASSO Regression)
-Điều chỉnh hàm lost bằng một lượng tổng bình phương các tham số
+Điều chỉnh hàm loss bằng một lượng tổng bình phương các hệ số trong mô hình linear regression
 
 L2 regularization (Ridge Regression)
+Điều chỉnh hàm loss bằng một lượng tổng các trị tuyệt đối của hệ số trong mô hình linear regression
 ### Robust regression
 Hồi quy mạnh là một dạng kĩ thuật phân tích hồi quy để khắc phục một số hạn chế của phương pháp tham số và phi tham số truyền thống. Nó được thiết kế để không bị ảnh hưởng bởi các dữ liệu vi phạm giả định. Nó thay thế cho phương pháp hồi quy theo tổng bình thông thường
 Các phương pháp thuộc nhóm Robust regression là
 
-### Least Median Squares (LMS)
 ### Least Trimmed Squares (LTS)
 
 ### Least Absolute Value (LAV)
@@ -30,3 +30,8 @@ Các phương pháp thuộc nhóm Robust regression là
 #### Turkey Biweight
 
 ### S estimators
+
+### Quantile Regression
+
+### Document
+https://machinelearningmastery.com/robust-regression-for-machine-learning-in-python/
