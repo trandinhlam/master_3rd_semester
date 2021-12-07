@@ -23,4 +23,4 @@ spec:
           name: app-ingress
           targer:
             type: Value
-            averageValue: 10000
+            averageValue: 1000
