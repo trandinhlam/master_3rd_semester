@@ -43,7 +43,7 @@ ____
         + Cô lập các tài nguyên
 
 + Các lợi ích được Kubernetes cung cấp:
-    + Servuce discovery và load balance
+    + Service discovery và load balance
     + Điều phối bộ nhớ
     + Tự động rollout và rollback
     + Đóng gói tự động
