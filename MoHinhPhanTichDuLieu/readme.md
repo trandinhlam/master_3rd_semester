@@ -52,6 +52,7 @@ ___
   ![img.png](images/plot_robust_fit.png)
 ____
 
++ https://online.stat.psu.edu/stat501/lesson/13/13.3
 + https://machinelearningcoban.com/2017/03/04/overfitting/
 + https://www.kaggle.com/getting-started/222077
 + https://www.kaggle.com/kanncaa1/machine-learning-tutorial-for-beginners/notebook
