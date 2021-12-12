@@ -88,6 +88,7 @@ for title, this_X, this_y in [
     ("Corrupt y, Small Deviants", X, y_errors),
     ("Corrupt X, Large Deviants", X_errors_large, y),
     ("Corrupt y, Large Deviants", X, y_errors_large),
+    ("Corrupt x,y, Large Deviants", X_errors_large, y_errors_large),
 ]:
     plt.figure(figsize=(5, 4))
     plt.plot(this_X[:, 0], this_y, "b+")

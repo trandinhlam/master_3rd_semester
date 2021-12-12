@@ -50,12 +50,14 @@ ___
 + https://machinelearningmastery.com/simple-linear-regression-tutorial-for-machine-learning/
 + https://machinelearningmastery.com/robust-regression-for-machine-learning-in-python/
   ![img.png](images/plot_robust_fit.png)
+
 ____
 
 + https://online.stat.psu.edu/stat501/lesson/13/13.3
 + https://machinelearningcoban.com/2017/03/04/overfitting/
 + https://www.kaggle.com/getting-started/222077
 + https://www.kaggle.com/kanncaa1/machine-learning-tutorial-for-beginners/notebook
++ https://www.kaggle.com/juliencs/a-study-on-regression-applied-to-the-ames-dataset/notebook
 
 ### Nhóm Kỹ thuật Regularization:
 
@@ -63,6 +65,23 @@ ____
     + ![img.png](images/LASSO_fomular.png)
 + L2 Regularization: Ridge Regression:
     +
-+ Hybrid: Huber Regression:
++ Hybrid: Elastic-Net:
++ Least Median of Squares (LMS)
++ Least Trimmed Squares (LTS)
+  + ![img_1.png](images/Least_Trimmed_Squares.png)
++ Huber M Estimation
++ MM Estimation
++ Least Absolute Value Method (LAV)
++ S Estimation
+
+____
+
++ Hybrid: Huber Regression: (M-Estimator)
+    + https://en.wikipedia.org/wiki/Huber_loss
     + https://cvxr.rbind.io/cvxr_examples/cvxr_huber-regression/
-    + ![](images/HUBER_formular.png)
+    + Huber loss ![](images/HUBER_formular.png)
+    + ![img.png](images/Huber_loss.png) (wiki)
+    + ![img.png](images/Huber_loss_2.png)
+      + ![img.png](images/Huber_loss_compare_square_error.png) 
+    + Loss Smooth L1 – L1: (in pytorch)
+    + ![img.png](images/Huber_loss_in_pytorch.png)

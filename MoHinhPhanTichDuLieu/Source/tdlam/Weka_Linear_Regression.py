@@ -4,7 +4,7 @@ import seaborn as sns
 import numpy as np
 
 # read csv (comma separated value) into data
-source = './data/column_2C_weka.csv'
+source = f'./data/weka/column_2C_weka.csv'
 data = pd.read_csv(source)
 
 
@@ -40,8 +40,11 @@ def KNN():
 from sklearn.linear_model import LinearRegression
 
 data1 = data[data['class'] == 'Abnormal']
-x = np.array(data1.loc[:, 'pelvic_incidence']).reshape(-1, 1)
-y = np.array(data1.loc[:, 'sacral_slope']).reshape(-1, 1)
+xLabel = 'sacral_slope'
+yLabel = 'pelvic_incidence'
+
+x = np.array(data1.loc[:, xLabel]).reshape(-1, 1)
+y = np.array(data1.loc[:, yLabel]).reshape(-1, 1)
 # Predict space
 predict_space = np.linspace(min(x), max(x)).reshape(-1, 1)
 
@@ -51,8 +54,8 @@ def LR():
     # Scatter
     plt.figure(figsize=[10, 10])
     plt.scatter(x=x, y=y)
-    plt.xlabel('pelvic_incidence')
-    plt.ylabel('sacral_slope')
+    plt.xlabel(xLabel)
+    plt.ylabel(yLabel)
     # plt.show()
     # LinearRegression
     reg = LinearRegression()
@@ -62,15 +65,22 @@ def LR():
     predicted = reg.predict(predict_space)
     # R^2
     print('R^2 score: ', reg.score(x, y))
-    showRegResult(predicted)
+    showRegResult(predict_space, predicted)
 
 
-def showRegResult(predicted):
-    # Plot regression line and scatter
-    plt.plot(predict_space, predicted, color='black', linewidth=3)
+results = []
+colors = ['black', 'green', 'red']
+
+
+def showRegResult(x_test, predicted):
+    results.append([x_test, predicted])
+    for i in range(len(results)):
+        rs = results[i]
+        # Plot regression line and scatter
+        plt.plot(rs[0], rs[1], color=colors[i], linewidth=3)
     plt.scatter(x=x, y=y)
-    plt.xlabel('pelvic_incidence')
-    plt.ylabel('sacral_slope')
+    plt.xlabel(xLabel)
+    plt.ylabel(yLabel)
     plt.show()
 
 
@@ -90,34 +100,37 @@ from sklearn.linear_model import Ridge, Lasso, Huber
 
 def RidgeReg():
     # x = np.array(data1.loc[:, ['pelvic_incidence', 'pelvic_tilt numeric', 'lumbar_lordosis_angle', 'pelvic_radius']])
-    x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=2, test_size=0.3)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=2, test_size=0.4)
     ridge = Ridge(alpha=0.1, normalize=True)
     ridge.fit(x_train, y_train)
     ridge_predict = ridge.predict(x_test)
     print('Ridge score: ', ridge.score(x_test, y_test))
     print('Ridge coefficients: ', ridge.coef_)
-    # showRegResult(ridge_predict)
+    showRegResult(x_test, ridge_predict)
 
 
 def LassoReg():
-    # x = np.array(data1.loc[:, ['pelvic_incidence', 'pelvic_tilt numeric', 'lumbar_lordosis_angle', 'pelvic_radius']])
+    x = np.array(data1.loc[:, [xLabel, 'pelvic_tilt numeric', 'lumbar_lordosis_angle', 'pelvic_radius']])
+    # x = np.array(data1.loc[:, ['pelvic_incidence', 'pelvic_tilt numeric']])
     x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=2, test_size=0.3)
     lasso = Lasso(alpha=0.1, normalize=True)
     lasso.fit(x_train, y_train)
     lasso_predict = lasso.predict(x_test)
-    print('lasso score: ', lasso.score(x_test, y_test))
+    print('Lasso R2 score: ', lasso.score(x_test, y_test))
     print('Lasso coefficients: ', lasso.coef_)
-    # showRegResult(lasso_predict)
+    showRegResult(x_test, lasso_predict)
+
 
 def HuberReg():
     # x = np.array(data1.loc[:, ['pelvic_incidence', 'pelvic_tilt numeric', 'lumbar_lordosis_angle', 'pelvic_radius']])
+    x = np.array(data1.loc[:, ['pelvic_incidence', 'pelvic_tilt numeric']])
     x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=2, test_size=0.3)
     huber = Huber(alpha=0.1, normalize=True)
     huber.fit(x_train, y_train)
-    lasso_predict = huber.predict(x_test)
+    huber_predict = huber.predict(x_test)
     print('huber score: ', huber.score(x_test, y_test))
     print('Lasso coefficients: ', huber.coef_)
-    # showRegResult(lasso_predict)
+    # showRegResult(huber_predict)
 
 
 # EDA()
@@ -126,4 +139,7 @@ LR()
 CV()
 RidgeReg()
 LassoReg()
-HuberReg()
+# ELASTIC-Net()
+# HuberReg()
+# ....
+
