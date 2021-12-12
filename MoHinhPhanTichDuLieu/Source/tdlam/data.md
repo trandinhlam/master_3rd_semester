@@ -1,0 +1,1 @@
+![img.png](attributes_specs.png)

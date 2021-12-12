@@ -68,8 +68,9 @@ ____
 + Hybrid: Elastic-Net:
 + Least Median of Squares (LMS)
 + Least Trimmed Squares (LTS)
-  + ![img_1.png](images/Least_Trimmed_Squares.png)
-+ Huber M Estimation
+    + ![img_1.png](images/Least_Trimmed_Squares.png)
++ Huber M Estimation:
+    + The class of M-estimator models contains all models that are derived to be maximum likelihood models.
 + MM Estimation
 + Least Absolute Value Method (LAV)
 + S Estimation
@@ -82,6 +83,6 @@ ____
     + Huber loss ![](images/HUBER_formular.png)
     + ![img.png](images/Huber_loss.png) (wiki)
     + ![img.png](images/Huber_loss_2.png)
-      + ![img.png](images/Huber_loss_compare_square_error.png) 
+        + ![img.png](images/Huber_loss_compare_square_error.png)
     + Loss Smooth L1 – L1: (in pytorch)
     + ![img.png](images/Huber_loss_in_pytorch.png)

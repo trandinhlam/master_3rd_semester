@@ -2,8 +2,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+from sklearn.linear_model import Ridge, Lasso, HuberRegressor, ElasticNet
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import cross_val_score, train_test_split
 
 # read csv (comma separated value) into data
+# https://www.kaggle.com/uciml/biomechanical-features-of-orthopedic-patients
+
 source = f'./data/weka/column_2C_weka.csv'
 data = pd.read_csv(source)
 
@@ -16,10 +21,10 @@ def EDA():
     color_list = ['red' if i == 'Abnormal' else 'green' for i in data.loc[:, 'class']]
     pd.plotting.scatter_matrix(data.loc[:, data.columns != 'class'],
                                c=color_list,
-                               figsize=[15, 15],
+                               figsize=[50, 50],
                                diagonal='hist',
                                alpha=0.5,
-                               s=200,
+                               s=50,
                                marker='*',
                                edgecolor="black")
     plt.show()
@@ -37,54 +42,62 @@ def KNN():
     # ... so on using notebook
 
 
-from sklearn.linear_model import LinearRegression
-
 data1 = data[data['class'] == 'Abnormal']
-xLabel = 'sacral_slope'
-yLabel = 'pelvic_incidence'
+
+x1Label = 'pelvic_radius'
+x2Label = 'pelvic_tilt_numeric'
+x3Label = 'lumbar_lordosis_angle'
+x4Label = 'sacral_slope'
+x5Label = 'pelvic_incidence'
+x6Label = 'degree_spondylolisthesis'
+xLabel = x4Label
+yLabel = x5Label
 
 x = np.array(data1.loc[:, xLabel]).reshape(-1, 1)
 y = np.array(data1.loc[:, yLabel]).reshape(-1, 1)
+
 # Predict space
 predict_space = np.linspace(min(x), max(x)).reshape(-1, 1)
 
 
-def LR():
-    # create data1 that includes pelvic_incidence that is feature and sacral_slope that is target variable
-    # Scatter
-    plt.figure(figsize=[10, 10])
-    plt.scatter(x=x, y=y)
-    plt.xlabel(xLabel)
-    plt.ylabel(yLabel)
-    # plt.show()
-    # LinearRegression
-    reg = LinearRegression()
-    # train
-    reg.fit(x, y)
-    # Predict
-    predicted = reg.predict(predict_space)
-    # R^2
-    print('R^2 score: ', reg.score(x, y))
-    showRegResult(predict_space, predicted)
+def prepare_x():
+    # return np.array(data1.loc[:, [xLabel, x2Label, x3Label, x4Label]])
+    return np.array(data1.loc[:, [xLabel]])
 
 
-results = []
-colors = ['black', 'green', 'red']
-
-
-def showRegResult(x_test, predicted):
-    results.append([x_test, predicted])
+def showRegResult(name, x_test, predicted, r2_score):
+    results.append([x_test, predicted, name, r2_score])
+    plt.figure(figsize=[50, 50])
     for i in range(len(results)):
         rs = results[i]
         # Plot regression line and scatter
-        plt.plot(rs[0], rs[1], color=colors[i], linewidth=3)
-    plt.scatter(x=x, y=y)
+        plt.plot(rs[0], rs[1], color=colors[i], linewidth=3, label="%s: R2 score = %.3f" % (rs[2], rs[3]))
+        legend = plt.legend(
+            loc="upper right", frameon=False, title="R2 Score Regressor", prop=dict(size="x-small")
+        )
+    plt.scatter(x=x, y=y, alpha=0.5, s=100, marker='*')
     plt.xlabel(xLabel)
     plt.ylabel(yLabel)
     plt.show()
 
 
-from sklearn.model_selection import cross_val_score, train_test_split
+def LR():
+    data = prepare_x()
+    x_train, x_test, y_train, y_test = train_test_split(data, y, random_state=2, test_size=0.3)
+    reg = LinearRegression()
+    # train
+    reg.fit(x_train, y_train)
+    # Predict
+    predicted = reg.predict(x_test)
+    # R^2
+    score = reg.score(x_test, y_test)
+    print('LR R^2 score: ', reg.score(x_test, y_test))
+    print('LR coefficients: ', reg.coef_)
+    showRegResult("LR", x_test, predicted, score)
+
+
+results = []
+colors = ['black', 'green', 'red', 'blue', 'yellow']
 
 
 def CV():
@@ -95,51 +108,60 @@ def CV():
     print('CV scores average: ', np.sum(cv_result) / k)
 
 
-from sklearn.linear_model import Ridge, Lasso, Huber
-
-
 def RidgeReg():
-    # x = np.array(data1.loc[:, ['pelvic_incidence', 'pelvic_tilt numeric', 'lumbar_lordosis_angle', 'pelvic_radius']])
-    x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=2, test_size=0.4)
+    data = prepare_x()
+    x_train, x_test, y_train, y_test = train_test_split(data, y, random_state=2, test_size=0.3)
     ridge = Ridge(alpha=0.1, normalize=True)
     ridge.fit(x_train, y_train)
     ridge_predict = ridge.predict(x_test)
+    score = ridge.score(x_test, y_test)
     print('Ridge score: ', ridge.score(x_test, y_test))
     print('Ridge coefficients: ', ridge.coef_)
-    showRegResult(x_test, ridge_predict)
+    showRegResult("Ridge", x_test, ridge_predict, score)
 
 
 def LassoReg():
-    x = np.array(data1.loc[:, [xLabel, 'pelvic_tilt numeric', 'lumbar_lordosis_angle', 'pelvic_radius']])
-    # x = np.array(data1.loc[:, ['pelvic_incidence', 'pelvic_tilt numeric']])
-    x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=2, test_size=0.3)
+    data = prepare_x()
+    x_train, x_test, y_train, y_test = train_test_split(data, y, random_state=2, test_size=0.3)
     lasso = Lasso(alpha=0.1, normalize=True)
     lasso.fit(x_train, y_train)
     lasso_predict = lasso.predict(x_test)
+    score = lasso.score(x_test, y_test)
     print('Lasso R2 score: ', lasso.score(x_test, y_test))
     print('Lasso coefficients: ', lasso.coef_)
-    showRegResult(x_test, lasso_predict)
+    showRegResult("Lasso", x_test, lasso_predict, score)
+
+
+def ElasticNetReg():
+    data = prepare_x()
+    x_train, x_test, y_train, y_test = train_test_split(data, y, random_state=2, test_size=0.3)
+    elastic = ElasticNet(alpha=1, normalize=True)
+    elastic.fit(x_train, y_train)
+    lasso_predict = elastic.predict(x_test)
+    score = elastic.score(x_test, y_test)
+    print('ElasticNet R2 score: ', elastic.score(x_test, y_test))
+    print('ElasticNet coefficients: ', elastic.coef_)
+    showRegResult("ElasticNet", x_test, lasso_predict, score)
 
 
 def HuberReg():
-    # x = np.array(data1.loc[:, ['pelvic_incidence', 'pelvic_tilt numeric', 'lumbar_lordosis_angle', 'pelvic_radius']])
-    x = np.array(data1.loc[:, ['pelvic_incidence', 'pelvic_tilt numeric']])
-    x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=2, test_size=0.3)
-    huber = Huber(alpha=0.1, normalize=True)
+    data = prepare_x()
+    x_train, x_test, y_train, y_test = train_test_split(data, y, random_state=2, test_size=0.3)
+    huber = HuberRegressor(epsilon=1, alpha=0.5)
     huber.fit(x_train, y_train)
     huber_predict = huber.predict(x_test)
-    print('huber score: ', huber.score(x_test, y_test))
-    print('Lasso coefficients: ', huber.coef_)
-    # showRegResult(huber_predict)
+    r2 = huber.score(x_test, y_test)
+    print('Huber score: ', r2)
+    print('Huber coefficients: ', huber.coef_)
+    showRegResult("HuberReg", x_test, huber_predict, r2)
 
 
-# EDA()
+EDA()
 # KNN()
 LR()
 CV()
 RidgeReg()
 LassoReg()
-# ELASTIC-Net()
-# HuberReg()
+ElasticNetReg()
+HuberReg()
 # ....
-
