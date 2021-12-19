@@ -257,14 +257,15 @@ ____
 
 + Create component in a Namespace
 
-### Ingress
-
 ______
+
+## Ingress
+
 ______
 
 # K8s AutoScaling Mechanism
 
-+ Có 3 loại autoScaler trong K8s
+### Có 3 loại autoScaler trong K8s
 
 ___
 

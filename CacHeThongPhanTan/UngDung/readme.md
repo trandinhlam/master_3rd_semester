@@ -2,7 +2,7 @@
 
 ## Prometheus Tutorials
 + https://www.youtube.com/watch?v=MX0YRlo1dYE&ab_channel=GoogleOpenSource
-![img.png](img.png)
+![img.png](img/HPA_structure.png)
 
 
 + https://towardsdatascience.com/kubernetes-hpa-with-custom-metrics-from-prometheus-9ffc201991e
