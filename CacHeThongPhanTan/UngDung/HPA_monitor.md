@@ -43,11 +43,34 @@ ___
     + ✔️ Prometheus là một time series database chuyên dùng để thu thập là lưu trữ các metric của hệ thống và ứng dụng
       nào đó, nhằm mục đích trực quan hóa và tracking sức khỏe, tình trạng của ứng dụng để đưa ra những hành động phù
       hợp và kịp thời
++ ❓Các chức năng chính của Prometheus?
+    +
+    +
+    +
+    +
 + ❓Khi nào cần sử dụng Prometheus?
-+ ❓Đã cài đặt được Prometheus vào hệ thống?
     + ✔️ Bước đầu tiên ta cần thu thập thông tin dữ liệu metric của ứng dụng và lưu vào một time series Database.
       Prometheus là một loại như vậy.
     + ✔️ Bước tiếp theo cần mở rộng Kubernetes Custom Metric API bằng các collector
++ ✔️ Đã cài đặt được Prometheus vào hệ thống?
+    + Sử dụng Helm để tải và install Prometheus package
+    + "helm install prometheus prometheus-community/kube-prometheus-stack"
+    + Sau đó kiểm tra các deployment/service hiện có của gói Chart này:
+        + StateFul Set:
+            + prometheus-prometheus-kube-prometheus-prometheus
+            + alertmanager-prometheus-kube-prometheus-alertmanager
+              ![img.png](img/prometheus_statefulSets.png)
+        + Deployments:
+            + prometheus-grafana
+            + prometheus-kube-prometheus-operator
+            + prometheus-kube-state-metrics
+        + DaemonSet:
+            + prometheus-node-exporter: Connect đến server, chuyển đổi các số liệu của Worker Node sang số liệu có thể
+              lưu ở Prometheus
+        + alertmanager-operated
+
++ ❓Các thành phần của Prometheus trong Kubernetes:
+    + 
 
 ___
 
