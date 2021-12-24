@@ -21,3 +21,9 @@ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo update
 
 helm install prometheus prometheus-community/kube-prometheus-stack
+
+
+# exporter
+https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-mongodb-exporter
+
+helm install mongodb-exporter prometheus-community/prometheus-mongodb-exporter -f values.yaml

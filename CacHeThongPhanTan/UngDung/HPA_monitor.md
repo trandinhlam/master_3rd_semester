@@ -56,30 +56,35 @@ ___
     + Sử dụng Helm để tải và install Prometheus package
     + "helm install prometheus prometheus-community/kube-prometheus-stack"
     + Sau đó kiểm tra các deployment/service hiện có của gói Chart này:
-        + StateFul Set:
-            + ✔️ kube-prometheus:
-                + Chứa thông tin Prometheus server muốn chạy
-                + Đặc tả file cấu hình của địa chỉ các ứng dụng cần lấy metric
-                + Đặc tả file cấu hình của các rule cảnh báo của ứng dụng
-                    + ❓How to add/adjust alert rules?
-                    + ❓How to adjust Prometheus configuration?
-                + Thông tin của helper container
-            + kube-alertmanager
-              ![img.png](img/prometheus_statefulSets.png)
-        + Deployments:
-            + prometheus-grafana
-              + forward port của grafana ra ngoài cluster: 
-                + kubectl port-forward deployment/prometheus-grafana 3000
-                + admin/prom-operator
-            + prometheus-operator
-            + prometheus-kube-state-metrics
-        + DaemonSet:
-            + prometheus-node-exporter: Connect đến server, chuyển đổi các số liệu của Worker Node sang số liệu có thể
-              lưu ở Prometheus
-        + alertmanager-operated
+
 
 + ❓Các thành phần của Prometheus trong Kubernetes:
-    +
+    + StateFul Set:
+        + ✔️ kube-prometheus:
+            + Chứa thông tin Prometheus server muốn chạy
+            + Đặc tả file cấu hình của địa chỉ các ứng dụng cần lấy metric
+            + Đặc tả file cấu hình của các rule cảnh báo của ứng dụng
+                + ❓How to add/adjust alert rules?
+                + ❓How to adjust Prometheus configuration?
+            + Thông tin của helper container
+        + kube-alertmanager:
+          ![img.png](img/prometheus_statefulSets.png)
+    + Deployments:
+        + prometheus-grafana:
+            + ✔️ forward port của grafana ra ngoài cluster:
+                + "kubectl port-forward deployment/prometheus-grafana 3000"
+                + admin/prom-operator
+        + prometheus-operator
+        + prometheus-kube-state-metrics
+    + DaemonSet:
+        + prometheus-node-exporter: Connect đến một ứng dụng (Service/Pod), chuyển đổi các số liệu của Worker Node sang
+          số liệu có thể lưu ở Prometheus
+    + ❓ ServiceMonitor:
+        + Là một custom Kubernetes component
+        + Mỗi instance gắn với một loại service riêng, để thu thập /metrics
+        + Mỗi instance có đánh dấu label "release: prometheus", từ đó cho phép Prometheus đi thăm dò các service này để
+          thu thập /metrics
+    + alertmanager-operated
 
 ___
 
