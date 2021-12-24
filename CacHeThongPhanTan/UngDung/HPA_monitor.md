@@ -48,7 +48,7 @@ ___
     +
     +
     +
-+ ❓Khi nào cần sử dụng Prometheus?
++ ❓Các bước sử dụng Prometheus?
     + ✔️ Bước đầu tiên ta cần thu thập thông tin dữ liệu metric của ứng dụng và lưu vào một time series Database.
       Prometheus là một loại như vậy.
     + ✔️ Bước tiếp theo cần mở rộng Kubernetes Custom Metric API bằng các collector
@@ -57,12 +57,21 @@ ___
     + "helm install prometheus prometheus-community/kube-prometheus-stack"
     + Sau đó kiểm tra các deployment/service hiện có của gói Chart này:
         + StateFul Set:
-            + prometheus-prometheus-kube-prometheus-prometheus
-            + alertmanager-prometheus-kube-prometheus-alertmanager
+            + ✔️ kube-prometheus:
+                + Chứa thông tin Prometheus server muốn chạy
+                + Đặc tả file cấu hình của địa chỉ các ứng dụng cần lấy metric
+                + Đặc tả file cấu hình của các rule cảnh báo của ứng dụng
+                    + ❓How to add/adjust alert rules?
+                    + ❓How to adjust Prometheus configuration?
+                + Thông tin của helper container
+            + kube-alertmanager
               ![img.png](img/prometheus_statefulSets.png)
         + Deployments:
             + prometheus-grafana
-            + prometheus-kube-prometheus-operator
+              + forward port của grafana ra ngoài cluster: 
+                + kubectl port-forward deployment/prometheus-grafana 3000
+                + admin/prom-operator
+            + prometheus-operator
             + prometheus-kube-state-metrics
         + DaemonSet:
             + prometheus-node-exporter: Connect đến server, chuyển đổi các số liệu của Worker Node sang số liệu có thể
@@ -70,7 +79,7 @@ ___
         + alertmanager-operated
 
 + ❓Các thành phần của Prometheus trong Kubernetes:
-    + 
+    +
 
 ___
 
