@@ -6,7 +6,7 @@ helm repo update
 https://github.com/helm/charts/tree/master/stable/prometheus-operator
 # install
 helm install prometheus stable/prometheus-operator
-# Create CRDs
+# Create CRDs (Deprecated)
 kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml
 kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
 kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_prometheuses.yaml
@@ -27,3 +27,7 @@ helm install prometheus prometheus-community/kube-prometheus-stack
 https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-mongodb-exporter
 
 helm install mongodb-exporter prometheus-community/prometheus-mongodb-exporter -f values.yaml
+helm install node-exporter prometheus-community/prometheus-node-exporter
+
+# HPA:
+https://www.youtube.com/watch?v=iodq-4srXA8&ab_channel=AntonPutra

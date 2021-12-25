@@ -12,14 +12,10 @@ spec:
     kind: Deployment
     name: mongo-express
   metrics:
-    - type: Object
-      object:
+    - type: Pods
+      pods:
         metric:
-          name: requests-per-second
-        describedObject:
-          apiVersion: networking.k8s.io/v1
-          kind: Ingress
-          name: mongo-express
+          name: packets-per-second
           targer:
-            type: Value
-            averageValue: 10
+            type: AverageValue
+            averageValue: 100

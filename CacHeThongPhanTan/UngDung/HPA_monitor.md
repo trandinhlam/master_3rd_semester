@@ -9,6 +9,7 @@
     + ✔️Cài đặt một cluster hoàn chỉnh bằng Minikube để giả lập một cluster, tên là "minikube"
     + ✔️Cài đặt giả lập ứng dụng quản lý MongoExpress chạy trên app.com (tự add host)
     + ✔️Bật được Metric server trên cluster này, và chạy một HPA
+      + "minikube addons enable metrics-server"
       ![img_1.png](img/mongo_express_basic_struct.png)
 
 ___
@@ -28,11 +29,12 @@ ___
     + ✔️ Việc áp dụng Helm có thể là chìa khóa để áp dụng hàng loạt các microservices, vì việc sử dụng trình quản lý gói
       này giúp đơn giản hóa việc quản lý các microservice rất nhiều.
     + Helm sử dụng một định dạng đóng gói gọi là Chart. Một Chart là một tập hợp các file nhằm mô tả các thành phần tài
-      nguyên trong Kubernetes. Một chart có thể rất đơn giản hoặc có thể cực kỳ phức tạp.
+      nguyên trong Kubernetes.
+    + Một chart có thể rất đơn giản hoặc có thể cực kỳ phức tạp.
 + ✔️ Đã cài được Helm?
     + Hướng dẫn cài Helm: https://helm.sh/
 + ❓Đã dùng Helm để cài các ứng dụng khác?
-    + Cài prometheus stack?
+    + ✔️ Cài prometheus stack?
     + Cài Custom metrics?
 
 ___
@@ -79,7 +81,7 @@ ___
     + DaemonSet:
         + prometheus-node-exporter: Connect đến một ứng dụng (Service/Pod), chuyển đổi các số liệu của Worker Node sang
           số liệu có thể lưu ở Prometheus
-    + ❓ ServiceMonitor:
+    + ✔️ ServiceMonitor:
         + Là một custom Kubernetes component
         + Mỗi instance gắn với một loại service riêng, để thu thập /metrics
         + Mỗi instance có đánh dấu label "release: prometheus", từ đó cho phép Prometheus đi thăm dò các service này để
