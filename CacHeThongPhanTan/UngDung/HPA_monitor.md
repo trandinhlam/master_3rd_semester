@@ -139,6 +139,8 @@ ___
         + kubectl port-forward service/prometheus-operated 9090 -n monitoring
     + Cài đặt mongo-monitor
         + kubectl apply -f 5-mongo-monitor
+    + Nếu mongo-monitor chưa chạy được custom metric, ta cài custom metric
+        + kubectl apply -f 6-prometheus-adapter
 
 
 + ❓Các custom metric có thể monitor được để phục vụ HPA?

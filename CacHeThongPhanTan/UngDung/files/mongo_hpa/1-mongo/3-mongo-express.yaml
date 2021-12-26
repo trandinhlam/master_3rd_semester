@@ -16,17 +16,16 @@ spec:
         app: mongo-express
     spec:
       containers:
-        - name: mongo-express
-          image: mongo-express
+        - image: mongo-express
+          name: mongo-express
           ports:
-            - containerPort: 8081
+            - name: http
+              containerPort: 8081
           resources:
             requests:
-              cpu: 0.5
-#              memory: 256Mi
+              cpu: 0.2
             limits:
-              cpu: 0.5
-#              memory: 512Mi
+              cpu: 0.2
           env:
             - name: ME_CONFIG_MONGODB_ADMINUSERNAME
               valueFrom:
@@ -53,7 +52,7 @@ spec:
     app: mongo-express
   type: LoadBalancer
   ports:
-    - protocol: TCP
+    - name: http
       port: 8081
-      targetPort: 8081
-      nodePort: 30000
+      protocol: TCP
+      targetPort: http
