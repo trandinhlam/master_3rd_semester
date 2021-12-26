@@ -29,5 +29,5 @@ https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-
 helm install mongodb-exporter prometheus-community/prometheus-mongodb-exporter -f values.yaml
 helm install node-exporter prometheus-community/prometheus-node-exporter
 
-# HPA:
+# HPA with Custom metric Tutorial:
 https://www.youtube.com/watch?v=iodq-4srXA8&ab_channel=AntonPutra

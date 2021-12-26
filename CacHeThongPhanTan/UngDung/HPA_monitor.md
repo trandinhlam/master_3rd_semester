@@ -9,8 +9,8 @@
     + ✔️Cài đặt một cluster hoàn chỉnh bằng Minikube để giả lập một cluster, tên là "minikube"
     + ✔️Cài đặt giả lập ứng dụng quản lý MongoExpress chạy trên app.com (tự add host)
     + ✔️Bật được Metric server trên cluster này, và chạy một HPA
-      + "minikube addons enable metrics-server"
-      ![img_1.png](img/mongo_express_basic_struct.png)
+        + "minikube addons enable metrics-server"
+          ![img_1.png](img/mongo_express_basic_struct.png)
 
 ___
 
@@ -90,11 +90,7 @@ ___
 
 ___
 
-# KEDA
-
-+ ❓KEDA là gì?
-+ ❓Vì sao cần KEDA? Vai trò trong hệ thống là gì?
-+ ❓Đã cài đặt được KEDA vào kiến trúc hệ thống chưa?
++ ❓Custom Resource Definitions là gì?
 
 ___
 
@@ -123,6 +119,28 @@ ___
 # Quá trình cài đặt và khởi tạo hệ thống
 
 + ❓Các bước cài đặt từng thành phần theo thứ tự?
+    + Dựng một cluster rỗng
+        + minikube start
+    + Dựng ra các namespace
+        + kubectl apply -f 0-namespaces
+            +
+    + Cài ứng dụng cần vận hành
+        + kubectl apply -f 1-mongo
+            + 0-mongo-configmap.yaml
+            + 1-mongo-secret.yaml
+            + 2-mongo.yaml
+            + 3-mongo-express.yaml
+    + Cài đặt Prometheus Operator thành các Custom Resource Definition
+        + kubectl apply -f 2-prometheus-operator-crd
+    + Từ bước này bắt đầu tách namespace ra để quy hoạch cho tốt
+        + kubectl apply -f 3-prometheus-operator
+    + Cài đặt prometheus
+        + kubectl apply -f 4-prometheus
+        + kubectl port-forward service/prometheus-operated 9090 -n monitoring
+    + Cài đặt mongo-monitor
+        + kubectl apply -f 5-mongo-monitor
+
+
 + ❓Các custom metric có thể monitor được để phục vụ HPA?
 + ❓Hệ thống lựa chọn loại custom metric nào? Vì sao?
 + ❓Cơ chế gửi warning đến admin như thế nào?
