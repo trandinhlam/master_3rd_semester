@@ -31,3 +31,5 @@ helm install node-exporter prometheus-community/prometheus-node-exporter
 
 # HPA with Custom metric Tutorial:
 https://www.youtube.com/watch?v=iodq-4srXA8&ab_channel=AntonPutra
+# AlertManager send message
+https://www.youtube.com/watch?v=mtE4migphGE&ab_channel=AntonPutra

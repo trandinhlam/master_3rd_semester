@@ -24,9 +24,9 @@ spec:
         # which is 1 request every two seconds
         type: AverageValue
         averageValue: 500m
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 50
+#  - type: Resource
+#    resource:
+#      name: cpu
+#      target:
+#        type: Utilization
+#        averageUtilization: 50
