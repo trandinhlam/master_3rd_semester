@@ -116,14 +116,13 @@ ___
 
 ___
 
-# Quá trình cài đặt và khởi tạo hệ thống
+# Quá trình cài đặt và khởi tạo hệ thống HPA with Custom Metrics
 
-+ ❓Các bước cài đặt từng thành phần theo thứ tự?
++ ✔️ Các bước cài đặt từng thành phần theo thứ tự:
     + Dựng một cluster rỗng
         + minikube start
     + Dựng ra các namespace
-        + kubectl apply -f 0-namespaces
-            +
+        + kubectl apply -f 1-namespaces
     + Cài ứng dụng cần vận hành
         + kubectl apply -f 1-mongo
             + 0-mongo-configmap.yaml
@@ -137,13 +136,19 @@ ___
     + Cài đặt prometheus
         + kubectl apply -f 4-prometheus
         + kubectl port-forward service/prometheus-operated 9090 -n monitoring
-    + Cài đặt mongo-monitor
-        + kubectl apply -f 5-mongo-monitor
+    + Cài đặt ứng dụng demo
+        + kubectl apply -f 5-demo
     + Nếu mongo-monitor chưa chạy được custom metric, ta cài custom metric
         + kubectl apply -f 6-prometheus-adapter
 
 
 + ❓Các custom metric có thể monitor được để phục vụ HPA?
 + ❓Hệ thống lựa chọn loại custom metric nào? Vì sao?
-+ ❓Cơ chế gửi warning đến admin như thế nào?
+
+________
+# ❓Cơ chế gửi warning đến admin như thế nào?
+
+Các bước cài đặt từng thành phần theo thứ tự:
+
+________
 
