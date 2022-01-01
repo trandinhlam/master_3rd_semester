@@ -13,3 +13,12 @@ spec:
   serviceMonitorSelector:
     matchLabels:
       team: devops
+  alerting:
+    alertmanagers:
+    - namespace: monitoring
+      name: alertmanager-operated
+      port: web
+  ruleSelector:
+    matchLabels:
+      team: devops
+  enableAdminAPI: false

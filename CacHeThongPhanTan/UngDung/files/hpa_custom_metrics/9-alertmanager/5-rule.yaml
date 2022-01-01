@@ -1,0 +1,19 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: general
+  namespace: monitoring
+  labels:
+    team: devops
+spec:
+  groups:
+  - name: general
+    rules:
+    - alert: TargetDown
+      annotations:
+        message: '{{ $value }} http request total'
+      expr: http_requests_total  > 4000
+      for: 15s
+      labels:
+        severity: warning

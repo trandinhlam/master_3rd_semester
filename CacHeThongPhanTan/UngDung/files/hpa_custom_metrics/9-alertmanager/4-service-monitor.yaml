@@ -2,17 +2,18 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: cadvisor
+  name: alertmanager
   namespace: monitoring
   labels:
     team: devops
 spec:
   endpoints:
-  - port: http-metrics
-    interval: 15s
+  - interval: 15s
+    port: web
+    scrapeTimeout: 15s
   namespaceSelector:
     matchNames:
     - monitoring
   selector:
     matchLabels:
-      app: cadvisor
+      operated-alertmanager: "true"

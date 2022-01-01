@@ -5,7 +5,7 @@ metadata:
   name: alertmanager
   namespace: monitoring
   labels:
-    team: devops-by-example
+    team: devops
 spec:
   endpoints:
   - interval: 15s

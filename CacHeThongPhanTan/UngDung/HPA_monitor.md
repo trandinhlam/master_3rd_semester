@@ -149,6 +149,6 @@ ________
 # ❓Cơ chế gửi warning đến admin như thế nào?
 
 Các bước cài đặt từng thành phần theo thứ tự:
-
++ 
 ________
 

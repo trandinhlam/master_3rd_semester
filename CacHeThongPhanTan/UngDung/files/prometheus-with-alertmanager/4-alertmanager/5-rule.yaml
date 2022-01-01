@@ -5,7 +5,7 @@ metadata:
   name: general
   namespace: monitoring
   labels:
-    team: devops-by-example
+    team: devops
 spec:
   groups:
   - name: general
