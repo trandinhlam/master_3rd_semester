@@ -10,10 +10,10 @@ spec:
   groups:
   - name: general
     rules:
-    - alert: TargetDown
+    - alert: PeekTraffic
       annotations:
-        message: '{{ $value }} http request total'
-      expr: http_requests_total  > 4000
+        message: '{{ $value }} http request per minute'
+      expr: rate(http_requests_total[1m]) * 60 > 100
       for: 15s
       labels:
         severity: warning
