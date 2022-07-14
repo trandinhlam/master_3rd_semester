@@ -50,7 +50,7 @@ ____
     + Tự phục hồi
     + Quản lý cấu hình và bảo mật
 
-+ Các concept thành phân của Kubernetes:
++ Các concept thành phần của Kubernetes:
     + Cluster:
     + Nodes:
     + Pods:
